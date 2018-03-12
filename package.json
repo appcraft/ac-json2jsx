@@ -5,6 +5,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
@@ -20,5 +21,8 @@
     "start": "node src/index.js",
     "test": "jest",
     "test:dev": "jest --watch"
+  },
+  "dependencies": {
+    "react-test-renderer": "^16.2.0"
   }
 }

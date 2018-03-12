@@ -1,6 +1,87 @@
+import React from 'react'
 import json2jsx from '../src'
 
+import renderer from 'react-test-renderer';
+console.log("renderer", renderer)
+
+// import { shallow, render, configure } from 'enzyme'
+// import Adapter from 'enzyme-adapter-react-16';
+
+
+// configure({adapter: new Adapter()})
+
+function render(component){
+  return renderer.create(component).toJSON()
+}
+
 describe("basic js", () => {
+
+  it('handles values', () => {
+    // 123
+    expect(json2jsx({
+      "type": "Value",
+      "value": 123
+    })).toEqual(123)
+
+    // "foo"
+    expect(json2jsx({
+      "type": "Value",
+      "value": "foo"
+    })).toEqual("foo")
+  });
+
+  it('handles objects', () => {
+    // { key: "value"}
+    expect(json2jsx({
+      "type": "Value",
+      "value": {
+        "key": "value"
+      }
+    })).toEqual({ key: "value"})
+
+    // { key: value}
+    expect(json2jsx({
+      "type": "ObjectExpression",
+      "properties": {
+        "key": {
+          "type": "Identifier",
+          "name": "value"
+        }
+      }
+    }, null, {value: "dynamic value"})).toEqual({ key: "dynamic value"})
+  });
+
+  it('handles arrays', () => {
+    // ["foo", "bar", "baz"]
+    expect(json2jsx({
+      "type": "Value",
+      "value": [
+        "foo",
+        "bar",
+        "baz"
+      ]
+    })).toEqual(["foo", "bar", "baz"])
+
+    // ["foo", value, "baz"]
+    expect(json2jsx({
+      "type": "ArrayExpression",
+      "elements": [
+        {
+          "type": "Value",
+          "value": "foo"
+        },
+        {
+          "type": "Identifier",
+          "name": "value"
+        },
+        {
+          "type": "Value",
+          "value": "baz"
+        }
+      ]
+    }, null, {value: 123})).toEqual(["foo", 123, "baz"])
+  });
+
 
   it('handles unary operators', () => {
     // !true
@@ -155,11 +236,96 @@ describe("basic js", () => {
   })
 })
 
-    // Render a checkbox with label in the document
-    // const checkbox = shallow(<CheckboxWithLabel labelOn="On" labelOff="Off" />);
-  
-    // expect(checkbox.text()).toEqual('Off');
-  
-    // checkbox.find('input').simulate('change');
-  
-    // expect(checkbox.text()).toEqual('On');
+
+describe("React elements", () => {
+  const components = {
+    div: ({children, ...props}) => <div {...props}>{children}</div>
+  }
+
+  it('handles components', () => {
+    expect(render(json2jsx({
+      "type": "Component",
+      "component": "div",
+      "props": [],
+      "children": [
+        {
+          "type": "Value",
+          "value": "Hello world"
+        }
+      ]
+    }, components))).toEqual(render(<div>Hello world</div>))
+
+  });
+
+  it('handles jsx props', () => {
+    expect(render(json2jsx({
+      "type": "Component",
+      "component": "div",
+      "props": [
+        {
+          "type": "JSXAttribute",
+          "name": "className",
+          "value": {
+            "type": "Value",
+            "value": "active"
+          }
+        },
+        {
+          "type": "JSXAttribute",
+          "name": "style",
+          "value": {
+            "type": "Value",
+            "value": {
+              "color": "red"
+            }
+          }
+        }
+      ],
+      "children": [
+        {
+          "type": "Value",
+          "value": "Test"
+        }
+      ]
+    }, components))).toEqual(render(<div className="active" style={{color: "red"}}>Test</div>))
+
+  });
+
+  it('handles nested components', () => {
+    expect(render(json2jsx({
+      "type": "Component",
+      "component": "div",
+      "props": [],
+      "children": [
+        {
+          "type": "Component",
+          "component": "div",
+          "props": [],
+          "children": [
+            {
+              "type": "Value",
+              "value": "Hello"
+            }
+          ]
+        },
+        {
+          "type": "Component",
+          "component": "div",
+          "props": [],
+          "children": [
+            {
+              "type": "Value",
+              "value": "world"
+            }
+          ]
+        }
+      ]
+    }, components))).toEqual(render(
+      <div>
+        <div>Hello</div>
+        <div>world</div>
+      </div>
+    ))
+
+  });
+})

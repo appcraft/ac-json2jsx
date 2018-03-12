@@ -113,6 +113,9 @@ function jsxEval(node, components, props){
       }
       return result
     }
+    case "ArrayExpression": {
+      return node.elements.map(n => jsxEval(n, components, props))
+    }
     case "CallExpression": {
       const callee = jsxEval(node.callee, components, props)
       // console.log("callee", callee, callee && callee._this)

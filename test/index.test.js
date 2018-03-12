@@ -2,13 +2,6 @@ import React from 'react'
 import json2jsx from '../src'
 
 import renderer from 'react-test-renderer';
-console.log("renderer", renderer)
-
-// import { shallow, render, configure } from 'enzyme'
-// import Adapter from 'enzyme-adapter-react-16';
-
-
-// configure({adapter: new Adapter()})
 
 function render(component){
   return renderer.create(component).toJSON()

@@ -1,7 +1,7 @@
 import React from 'react'
 
-function unop(op, arg){
-  switch(op){
+function unop(op, arg) {
+  switch (op) {
     case "+": return +arg
     case "-": return -arg
     case "!": return !arg
@@ -13,26 +13,26 @@ function unop(op, arg){
   }
 }
 
-function binop(op, left, right){
-  switch(op){
-    case '+':   return left +   right
-    case '-':   return left -   right
-    case '*':   return left *   right
-    case '/':   return left /   right
-    case '%':   return left %   right
-    case '==':  return left ==  right
-    case '!=':  return left !=  right
+function binop(op, left, right) {
+  switch (op) {
+    case '+': return left + right
+    case '-': return left - right
+    case '*': return left * right
+    case '/': return left / right
+    case '%': return left % right
+    case '==': return left == right
+    case '!=': return left != right
     case '===': return left === right
     case '!==': return left !== right
-    case '>':   return left >   right
-    case '>=':  return left >=  right
-    case '<':   return left <   right
-    case '<=':  return left <=  right
-    case '&':   return left &   right
-    case '|':   return left |   right
-    case '^':   return left ^   right
-    case '<<':  return left <<  right
-    case '>>':  return left >>  right
+    case '>': return left > right
+    case '>=': return left >= right
+    case '<': return left < right
+    case '<=': return left <= right
+    case '&': return left & right
+    case '|': return left | right
+    case '^': return left ^ right
+    case '<<': return left << right
+    case '>>': return left >> right
     case '>>>': return left >>> right
     default: {
       console.error("unhandled binop", op)
@@ -41,16 +41,15 @@ function binop(op, left, right){
   }
 }
 
-function jsxEval(node, components, props){
-  // console.log("eval", node)
+function jsxEval(node, components, props) {
   if (!node || !node.type) return null;
 
-  switch(node.type){
+  switch (node.type) {
     case "Identifier": return props[node.name];
     case "Value": return node.value;
-    case "TemplateLiteral": { 
+    case "TemplateLiteral": {
       let str = ""
-      for(let i=0; i<node.quasis.length; i++){
+      for (let i=0; i<node.quasis.length; i++) {
         str += node.quasis[i]
         if (i < node.expressions.length){
           str += jsxEval(node.expressions[i], components, props)
@@ -70,7 +69,7 @@ function jsxEval(node, components, props){
     }
     case "LogicalExpression": {
       const left = jsxEval(node.left, components, props)
-      switch(node.operator){
+      switch (node.operator) {
         case "&&": {
           if (!left) return false // Slight semantic change for React Native (simplified {str && <Text>{str}</Text>})
           return jsxEval(node.right, components, props)
@@ -87,19 +86,18 @@ function jsxEval(node, components, props){
     }
     case "ConditionalExpression": { 
       const res = jsxEval(node.test, components, props)
-      if (res){
+      if (res) {
         return jsxEval(node.consequent, components, props)
-      } else {
-        return jsxEval(node.alternate, components, props)
       }
+      return jsxEval(node.alternate, components, props)
     }
     case "MemberExpression": {
       const { object, property } = node
       const obj = jsxEval(object, components, props)
       if (!obj) return null
-      if (property.type === "Identifier"){
+      if (property.type === "Identifier") {
         const res = obj[property.name]
-        if (typeof res === "function"){
+        if (typeof res === "function") {
           res._this = obj
         }
         return res;
@@ -108,7 +106,7 @@ function jsxEval(node, components, props){
     }
     case "ObjectExpression": {
       const result = {}
-      for(let key in node.properties){
+      for (let key in node.properties) {
         result[key] = jsxEval(node.properties[key], components, props)
       }
       return result
@@ -133,7 +131,7 @@ function jsxEval(node, components, props){
     }
     case "Component": {
       const elementProps = {}
-      for(let prop of node.props){
+      for (let prop of node.props) {
         elementProps[prop.name] = prop.value ? jsxEval(prop.value, components, props) : true
       }
       const children = node.children.map(c => jsxEval(c, components, props));

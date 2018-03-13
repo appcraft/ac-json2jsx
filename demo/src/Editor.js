@@ -56,23 +56,23 @@ class Editor extends Component {
           role="CTO", user={id: 123}
 
     const Component = (props) => json2jsx(result, components, props)
-
+    
     return (
       <ObjProvider code={defaultCode} onChange={this.handleChange}>
         <div className="react-live-container">
           <div style={{display: "flex", flex: 1, flexDirection: 'column'}}>
-            <div style={{flex: 2, backgroundColor: '#1D1F21', position: 'relative'}}>
+            <div style={{flex: 2, backgroundColor: '#1D1F21', position: 'relative', margin: 4, borderLeft: '3px solid #f44336'}}>
               <Label type="jsx">JSX template</Label>
               <LiveEditor />
             </div>
-            <div style={{flex: 1, backgroundColor: '#fff', color: '#333', position: 'relative', paddingTop: 20}}>
+            <div style={{flex: 1, backgroundColor: '#eee', color: '#333', position: 'relative', padding: 8, paddingTop: 20, margin: 4, borderLeft: '3px solid #777'}}>
               <Label type="preview">Live preview</Label>
               <ErrorBoundary>
                 <Component {...renderProps} />
               </ErrorBoundary>
             </div>
           </div>
-          <div style={{flex: 1, backgroundColor: '#f5f2f0', color: '#000', position: 'relative'}}>
+          <div style={{flex: 1, backgroundColor: '#f5f2f0', color: '#000', position: 'relative', margin: 4, borderLeft: '3px solid #1976D2'}}>
               <Label type="json">JSON</Label>
               <pre className="prism-json" dangerouslySetInnerHTML={{__html: highlight(JSON.stringify(result, null, 2), languages.json)}} />
           </div>

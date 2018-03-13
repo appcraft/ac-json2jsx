@@ -2,6 +2,8 @@
 
 A JSON to JSX converter. 
 
+![preview](https://raw.githubusercontent.com/appcraft/ac-json2jsx/master/doc/sample.png)
+
 ## Why ?
 
 We needed to push React component code dynamically to React Native users. Sending raw code and using eval could probably work but would lead to memory leaks. So this is plain JSON, re-interpreted client-side.

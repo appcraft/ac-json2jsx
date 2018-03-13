@@ -1,0 +1,23 @@
+{
+  "name": "jsx",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@babel/standalone": "^7.0.0-beta.40",
+    "babel": "^6.23.0",
+    "babel-plugin-jsx-to-object": "^1.0.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-standalone": "^6.26.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-fontawesome": "^1.6.1",
+    "react-live": "^1.10.1",
+    "react-scripts": "1.1.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

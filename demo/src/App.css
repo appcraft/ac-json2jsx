@@ -1,0 +1,88 @@
+body {
+  background-color: #282a36;
+  color: #fff;
+}
+
+h1 {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+.react-live-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.prism-code {
+  padding-top: 20px !important;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.prism-json {
+  background-color: #f5f2f0;
+  margin: 0;
+  padding: 8px;
+  padding-top: 20px;
+  height: 450px;
+  max-height: 450px;
+  overflow-y: scroll;
+}
+
+pre, code {
+  white-space: pre-wrap !important;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.react-live-error {
+  display: block;
+  padding: 0.5rem;
+  background: #ff5555;
+  color: #f8f8f2;
+  white-space: pre-wrap;
+  font-family: monospace;
+}
+
+.label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 0.75em;
+  text-transform: uppercase;
+  padding: 2px 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.label--jsx {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #CCC;
+}
+
+.label--json, .label--preview {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #333;
+}

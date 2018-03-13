@@ -2,6 +2,7 @@
   "name": "jsx",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://appcraft.github.io/ac-json2jsx/",
   "dependencies": {
     "@babel/standalone": "^7.0.0-beta.40",
     "babel": "^6.23.0",

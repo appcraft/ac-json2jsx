@@ -18,7 +18,9 @@
   "scripts": {
     "start": "node src/index.js",
     "test": "jest",
-    "test:dev": "jest --watch"
+    "test:dev": "jest --watch",
+    "predeploy": "cd demo && yarn run build",
+    "deploy": "git subtree push --prefix demo/build origin gh-pages"
   },
   "dependencies": {
     "react-test-renderer": "^16.2.0"

@@ -18,6 +18,16 @@ Babel is used to generate an AST of the JSX code. A simple AST interpreter is th
 
 ## FAQ
 
+### How slow is this ?
+
+It actually runs faster than you might think. Think of a page rendering with React in 3 steps :
+
+1. Create the React components / vdom
+2. Compare/merge with the previous vdom
+3. Apply changes to the page (react-dom) or screen (react-native)
+
+We haven't done lots of benchmarks yet, but our first tests (in Chrome) show that json2jsx is roughly 2 times slow for step 1. Steps 2 and 3 stays in pure JS inside React so there's no performance hit for those steps. So all in all, it feels like the performance should be pretty close to vanilla React performance.
+
 ### This sounds like a terrible idea
 
 Yeah, it probably is. Still not sure if it's a good idea or a crazy one. I'll beb testing and benchmarking it in our product and see how it well it works. Obviously I'm open to other solutions.

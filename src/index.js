@@ -122,12 +122,7 @@ function jsxEval(node, components, props) {
     }
     case "ArrowFunctionExpression": {
       const { body, params } = node
-      if (params.length === 0) return () => jsxEval(body, components, props)
-      if (params.length === 1) return (arg0) => jsxEval(body, components, {...props, [params[0].name]: arg0} )
-      if (params.length === 2) return (arg0, arg1) => jsxEval(body, components, {...props, [params[0].name]: arg0, [params[1].name]: arg1} )
-      if (params.length === 3) return (arg0, arg1, arg2) => jsxEval(body, components, {...props, [params[0].name]: arg0, [params[1].name]: arg1, [params[2].name]: arg2} )
-      console.log("TODO: handle more than 4 elements")
-      return (arg0, arg1, arg2, arg3) => jsxEval(body, components, {...props, [params[0].name]: arg0, [params[1].name]: arg1, [params[2].name]: arg2, [params[3].name]: arg3} )
+      return (...args) => jsxEval(body, components, {...props, ...params.reduce((acc, param, i) => ({...acc, [param.name]: args[i]}), {})} )
     }
     case "Component": {
       const elementProps = {}

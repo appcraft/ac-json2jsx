@@ -9,11 +9,11 @@
     "babel-plugin-jsx-to-object": "^1.0.1",
     "babel-preset-react": "^6.24.1",
     "babel-standalone": "^6.26.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-fontawesome": "^1.6.1",
     "react-live": "^1.10.1",
-    "react-scripts": "1.1.1"
+    "react-scripts": "^4.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -23,5 +23,17 @@
   },
   "devDependencies": {
     "gh-pages": "^1.1.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
